@@ -508,6 +508,7 @@ footer.site{background:#050d2b;color:rgba(255,255,255,.6);padding:20px 0;font-si
   <main class="amain">
     <header class="ahead"><div><h1 id="adminHeading">Projects</h1><p>Everything saves automatically and updates the site. Use Theme & Fonts to change style.</p></div><button class="btn btn-lime" id="addProjectBtn" onclick="openProjectEditor()"><i class="fa-solid fa-plus"></i> Add project</button></header>
 
+    
     <section class="apanel" id="pane-projects"><div style="overflow-x:auto"><table class="atable"><thead><tr><th>Preview</th><th>Title</th><th>Genre</th><th>Featured</th><th>Actions</th></tr></thead><tbody id="adminRows"></tbody></table></div></section>
 
     <section class="apanel" id="pane-genres" hidden><h3 style="margin:0 0 6px;font-family:var(--heading)">Genres / Categories</h3><p style="color:#8ea0c3;font-size:.82rem;margin:0 0 16px">Add, rename or delete genres. Renaming updates all linked projects. Filters update automatically.</p><div id="genreList"></div><div class="agrid" style="margin-top:12px"><div class="field"><label>New genre name</label><input id="newGenre" placeholder="e.g. Motion & 3D"></div><div class="field"><label>&nbsp;</label><button class="btn btn-lime" type="button" onclick="addGenre()">Add genre <i class="fa-solid fa-plus"></i></button></div></div></section>
