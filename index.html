@@ -1,3 +1,5 @@
+--- START OF FILE text/html ---
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -487,7 +489,7 @@ footer.site{background:#050d2b;color:rgba(255,255,255,.6);padding:20px 0;font-si
 
 <div class="overlay" id="projectOverlay"><article class="modal"><button class="mclose" onclick="closeProjectModal()" aria-label="Close"><i class="fa-solid fa-xmark"></i></button><img class="mcover" id="modalCover" src="" alt=""><div class="mbody"><div class="kicker" id="modalCategory"></div><h2 id="modalTitle"></h2><div class="mmeta"><div><small>Client</small><b id="modalClient"></b></div><div><small>Role</small><b id="modalRole"></b></div><div><small>Timeline</small><b id="modalTimeline"></b></div><div><small>Tools</small><b id="modalTools"></b></div></div><p id="modalDescription"></p><div id="modalLive" style="margin-top:16px"></div><div class="mgal" id="modalGallery"></div></div></article></div>
 
-<div class="overlay" id="loginOverlay"><form class="login" id="loginForm"><button class="mclose" type="button" onclick="closeLogin()" style="position:absolute;top:10px;right:10px;margin:0"><i class="fa-solid fa-xmark"></i></button><div class="brand-mark" style="margin-bottom:14px">A</div><h2>Control room</h2><p>Edit projects, genres, theme, fonts, profile, resume & inbox. Changes go live instantly.</p><div class="aform"><div class="field"><label>Email</label><input id="adminEmail" type="email" value="admin@design.io" required></div><div class="field"><label>Password</label><input id="adminPassword" type="password" value="designer2025" required></div></div><div class="lnote">Demo — admin@design.io / designer2025</div><button class="btn btn-lime" style="width:100%" type="submit">Enter dashboard <i class="fa-solid fa-arrow-right"></i></button></form></div>
+<div class="overlay" id="loginOverlay"><form class="login" id="loginForm"><button class="mclose" type="button" onclick="closeLogin()" style="position:absolute;top:10px;right:10px;margin:0"><i class="fa-solid fa-xmark"></i></button><div class="brand-mark" style="margin-bottom:14px">A</div><h2>Control room</h2><p>Edit projects, genres, theme, fonts, profile, resume & inbox. Changes go live instantly.</p><div class="aform"><div class="field"><label>Email</label><input id="adminEmail" type="text" value="asn.admin.in" required></div><div class="field"><label>Password</label><input id="adminPassword" type="password" value="asn@design123" required></div></div><div class="lnote">Demo — asn.admin.in / asn@design123</div><button class="btn btn-lime" style="width:100%" type="submit">Enter dashboard <i class="fa-solid fa-arrow-right"></i></button></form></div>
 
 <div class="admin" id="adminView">
   <aside class="aside">
@@ -829,8 +831,8 @@ document.getElementById("contactForm").addEventListener("submit",e=>{
 document.getElementById("loginForm").addEventListener("submit",e=>{
   e.preventDefault();
   const em=document.getElementById("adminEmail").value.trim(),pw=document.getElementById("adminPassword").value;
-  if(em==="admin@design.io"&&pw==="designer2025"){hide("loginOverlay");document.getElementById("adminView").classList.add("active");document.body.classList.add("locked");setTab("projects");notify("Welcome back — Theme & Fonts is ready for you.")}
-  else notify("Use demo: admin@design.io / designer2025")
+  if(em==="asn.admin.in"&&pw==="asn@design123"){hide("loginOverlay");document.getElementById("adminView").classList.add("active");document.body.classList.add("locked");setTab("projects");notify("Welcome back — Theme & Fonts is ready for you.")}
+  else notify("Use demo: asn.admin.in / asn@design123")
 });
 document.getElementById("adminView").addEventListener("click",e=>{
   const t=e.target.closest("[data-tab]");if(t){setTab(t.dataset.tab);return}
