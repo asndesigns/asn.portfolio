@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -579,20 +578,40 @@ footer.site{background:#050d2b;color:rgba(255,255,255,.6);padding:20px 0;font-si
 const KEY="aarav-aesthetic-v6";
 const clone=o=>JSON.parse(JSON.stringify(o));
 const DEFAULT={
- profile:{name:"Aarav Vance",role:"Lead Product & Visual Designer",availability:"Available for select projects",heroA:"Design",heroB:"that moves",heroC:"people.",heroBio:"I’m a product and visual designer shaping useful, expressive digital experiences — from first sketch to final interaction.",aboutBio:"Over the past eight years I’ve partnered with ambitious teams to turn complex workflows into clear, memorable products.",photo:"https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=80",email:"asnafvaram435@gmail.com",phone:"+91 79072 77089",location:"Remote worldwide",stats:[{value:"8+",label:"Years creating"},{value:"94+",label:"Projects shipped"},{value:"$180M+",label:"Value enabled"}],marquee:["PRODUCT DESIGN","UI / UX","BRANDING","DESIGN SYSTEMS"]},
- genres:["UI/UX","Product Design","Branding"],
- skills:[{name:"Product strategy & UX",pct:96},{name:"Design systems & UI",pct:98}],
- tools:["Figma","Adobe CC","Webflow"],
- experience:[],
- education:[],
- testimonials:[],
- projects:[],
- inquiries:[],
- appearance:{primary:"#1338ff",accent:"#d8ff2e",bg:"#f4f5f0",radius:22,headingFont:"Space Grotesk",bodyFont:"Inter",mode:"light",animation:"normal",preset:"electric"}
+  profile:{name:"Aarav Vance",role:"Lead Product & Visual Designer",availability:"Available for select projects",heroA:"Design",heroB:"that moves",heroC:"people.",heroBio:"I’m a product and visual designer shaping useful, expressive digital experiences — from first sketch to final interaction.",aboutBio:"Over the past eight years I’ve partnered with ambitious teams to turn complex workflows into clear, memorable products.",photo:"https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=900&q=80",email:"asnafvaram435@gmail.com",phone:"+91 79072 77089",location:"Remote worldwide",stats:[{value:"8+",label:"Years creating"},{value:"94+",label:"Projects shipped"},{value:"$180M+",label:"Value enabled"}],marquee:["PRODUCT DESIGN","UI / UX","BRANDING","DESIGN SYSTEMS"]},
+  genres:["UI/UX","Product Design","Branding"],
+  skills:[{name:"Product strategy & UX",pct:96},{name:"Design systems & UI",pct:98}],
+  tools:["Figma","Adobe CC","Webflow"],
+  experience:[],
+  education:[],
+  testimonials:[],
+  projects:[],
+  inquiries:[],
+  appearance:{primary:"#1338ff",accent:"#d8ff2e",bg:"#f4f5f0",radius:22,headingFont:"Space Grotesk",bodyFont:"Inter",mode:"light",animation:"normal",preset:"electric"}
 };
 
 let db = load();
 let curCat="All",curQ="",curSort="new",toastT;
+
+// PRELOADER ANIMATION & DISMISSAL
+window.addEventListener("load", () => {
+  const pre = document.getElementById("preloader");
+  const fill = document.getElementById("preFill");
+  const num = document.getElementById("preNum");
+  if(pre) {
+    let p = 0;
+    const timer = setInterval(() => {
+      p += Math.floor(Math.random() * 25) + 15;
+      if(p >= 100) {
+        p = 100;
+        clearInterval(timer);
+        pre.classList.add("done");
+      }
+      if(fill) fill.style.width = p + "%";
+      if(num) num.textContent = `LOADING — ${p}%`;
+    }, 80);
+  }
+});
 
 // SAFETY LOAD: Ensures all arrays exist even if they weren't saved before
 function load(){
@@ -600,7 +619,6 @@ function load(){
     const s = localStorage.getItem(KEY);
     if(!s) return clone(DEFAULT);
     const p = JSON.parse(s);
-    // Merge defaults with saved data to prevent missing property errors
     return {
       ...clone(DEFAULT),
       ...p,
@@ -624,7 +642,6 @@ function save(msg){
 }
 
 function esc(v=""){return String(v).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]))}
-function safeUrl(v=""){try{const u=new URL(v,location.href);return ["http:","https:"].includes(u.protocol)?u.href:""}catch(e){return""}}
 function notify(m){document.getElementById("toastMsg").textContent=m;const t=document.getElementById("toast");t.classList.add("show");clearTimeout(toastT);toastT=setTimeout(()=>t.classList.remove("show"),3200)}
 
 function applyAppearance(){
@@ -694,7 +711,6 @@ function renderProjects(){
     </article>`).join("");
 }
 
-// CRASH-PROOF ADMIN RENDER
 function renderAdmin(){
   const rows = document.getElementById("adminRows");
   if(rows) {
@@ -713,7 +729,6 @@ function renderAdmin(){
   if(sel) sel.innerHTML=db.genres.map(g=>`<option>${esc(g)}</option>`).join("");
 }
 
-// THE FUNCTION THAT WAS FAILING
 function openProjectEditor(pr=null){
   const form = document.getElementById("projectForm");
   if(!form) return;
@@ -722,13 +737,12 @@ function openProjectEditor(pr=null){
   document.getElementById("projectId").value=pr?pr.id:"";
   document.getElementById("projectFormHeading").textContent=pr?"Edit project":"Add project";
   
-  // Fill the category dropdown before showing
   const sel=document.getElementById("pCat");
   if(sel) sel.innerHTML=db.genres.map(g=>`<option>${esc(g)}</option>`).join("");
 
   if(pr){
     document.getElementById("pTitle").value=pr.title||"";
-    document.getElementById("pCat").value=pr.category||"";
+    if(sel) sel.value=pr.category||"";
     document.getElementById("pCover").value=pr.cover||"";
     document.getElementById("pShort").value=pr.shortDesc||"";
   }
@@ -785,7 +799,6 @@ function setTab(t){
   });
 }
 
-// Reset Data Function
 function resetData(){
   if(confirm("Restore demo content? This will fix any broken buttons.")){
     db = clone(DEFAULT);
@@ -794,7 +807,6 @@ function resetData(){
   }
 }
 
-/* UI Bindings */
 document.getElementById("loginForm").onsubmit = login;
 document.getElementById("projectForm").onsubmit = (e) => {
   e.preventDefault();
@@ -812,7 +824,6 @@ document.getElementById("projectForm").onsubmit = (e) => {
   closeProjectEditor();
 };
 
-// Global click listener for tabs and edits
 document.addEventListener('click', e => {
   if(e.target.dataset.tab) setTab(e.target.dataset.tab);
   if(e.target.dataset.edit) {
@@ -829,7 +840,6 @@ function renderFeatured(){}
 function populateProfile(){}
 function populateAppearance(){}
 
-// Initialize
 renderAll();
 </script>
 </body>
