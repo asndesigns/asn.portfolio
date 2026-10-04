@@ -613,7 +613,7 @@ window.addEventListener("load", () => {
   }
 });
 
-// SAFETY LOAD: Ensures all arrays exist even if they weren't saved before
+// SAFETY LOAD
 function load(){
   try {
     const s = localStorage.getItem(KEY);
@@ -729,26 +729,40 @@ function renderAdmin(){
   if(sel) sel.innerHTML=db.genres.map(g=>`<option>${esc(g)}</option>`).join("");
 }
 
+// FIXED PROJECT EDITOR HANDLER
 function openProjectEditor(pr=null){
+  const overlay = document.getElementById("editorOverlay");
   const form = document.getElementById("projectForm");
-  if(!form) return;
+  if(!form || !overlay) return;
   
   form.reset();
-  document.getElementById("projectId").value=pr?pr.id:"";
-  document.getElementById("projectFormHeading").textContent=pr?"Edit project":"Add project";
+  document.getElementById("projectId").value = pr ? pr.id : "";
+  document.getElementById("projectFormHeading").textContent = pr ? "Edit project" : "Add project";
   
-  const sel=document.getElementById("pCat");
-  if(sel) sel.innerHTML=db.genres.map(g=>`<option>${esc(g)}</option>`).join("");
+  const sel = document.getElementById("pCat");
+  if(sel) {
+    sel.innerHTML = db.genres.map(g => `<option>${esc(g)}</option>`).join("");
+  }
 
   if(pr){
-    document.getElementById("pTitle").value=pr.title||"";
-    if(sel) sel.value=pr.category||"";
-    document.getElementById("pCover").value=pr.cover||"";
-    document.getElementById("pShort").value=pr.shortDesc||"";
+    document.getElementById("pTitle").value = pr.title || "";
+    if(sel) sel.value = pr.category || "";
+    document.getElementById("pCover").value = pr.cover || "";
+    document.getElementById("pShort").value = pr.shortDesc || "";
   }
   
-  show("editorOverlay");
+  overlay.classList.add("active");
+  document.body.classList.add("locked");
 }
+
+function closeProjectEditor(){
+  const overlay = document.getElementById("editorOverlay");
+  if(overlay) overlay.classList.remove("active");
+  document.body.classList.remove("locked");
+}
+
+function openLogin(){show("loginOverlay")}
+function closeLogin(){hide("loginOverlay")}
 
 function show(id){ 
   const el = document.getElementById(id);
@@ -763,10 +777,6 @@ function hide(id){
   if(el) el.classList.remove("active");
   document.body.classList.remove("locked");
 }
-
-function closeProjectEditor(){hide("editorOverlay")}
-function openLogin(){show("loginOverlay")}
-function closeLogin(){hide("loginOverlay")}
 
 function exitAdmin(){
   document.getElementById("adminView").classList.remove("active");
